@@ -90,6 +90,12 @@ fun what_month(day_of_year: int) =
     in
 	number_before_reaching_sum(day_of_year, days_in_month) + 1
     end
-    
+
+
+fun month_range(doy1: int, doy2: int) =
+    if doy1 > doy2
+    then []
+    else what_month(doy1) :: month_range(doy1+1, doy2)
+
     
 	
