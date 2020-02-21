@@ -97,5 +97,25 @@ fun month_range(doy1: int, doy2: int) =
     then []
     else what_month(doy1) :: month_range(doy1+1, doy2)
 
+
+fun oldest(dates: (int*int*int) list) =
+    if null dates
+    then NONE
+    else
+	let
+	    fun non_empty_oldest(dates: (int*int*int) list) =
+		if null (tl dates)
+		then hd dates
+		else
+		    let
+			val oldest_in_tl = non_empty_oldest(tl dates)
+			val current_date = hd dates
+		    in
+			(if is_older(current_date, oldest_in_tl) then current_date else oldest_in_tl)
+		    end
+	in
+	    SOME (non_empty_oldest dates)
+	end
+
     
 	
