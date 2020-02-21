@@ -92,6 +92,3 @@ fun oldest(dates: (int*int*int) list) =
 	in
 	    SOME (non_empty_oldest dates)
 	end
-
-    
-	
