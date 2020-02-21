@@ -78,4 +78,8 @@ fun date_to_string(date: (int*int*int)) =
     end
 
 
+fun number_before_reaching_sum(sum: int, xs: int list) =
+    if sum <= 0
+    then ~1
+    else 1 + number_before_reaching_sum(sum - (hd xs), tl xs)
 	
