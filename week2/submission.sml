@@ -91,14 +91,13 @@ fun oldest(dates: (int*int*int) list) =
 	end
 
 
+fun element_in_lst(x: int, lst: int list) =
+    not (null lst) andalso ((hd lst = x) orelse element_in_lst(x, tl lst))
+	    
+
 fun unique_months(months: int list) =
     (* take a unique list of possible months and find and keep if each exists in the supplied list -> 12 passes over provided list -> o(n) *)
     let
-	fun element_in_lst(x: int, lst: int list) =
-	    if null lst
-	    then false
-	    else (hd lst = x) orelse element_in_lst(x, tl lst)
-
 	fun filter_months(months_in_year: int list) =
 	    if null months_in_year
 	    then []
@@ -121,9 +120,6 @@ fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
 fun generic_remove_duplicates(lst: int list) =
     (* not used anywhere just implemented for fun *)
     let
-	fun element_in_lst(x: int, lst: int list) =
-	    not (null lst) andalso ((hd lst = x) orelse element_in_lst(x, tl lst))
-
 	fun reduce(lst: int list, output_lst: int list) =
 	    if null lst
 	    then output_lst
@@ -134,6 +130,8 @@ fun generic_remove_duplicates(lst: int list) =
     in
 	reduce(lst, [])
     end
+
+    
 			   
 			   
 				  
