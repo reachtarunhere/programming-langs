@@ -117,8 +117,30 @@ fun number_in_months_challenge(dates: (int*int*int) list, months: int list) =
 fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
     dates_in_months(dates, unique_months(months))
 				
-				
 
+fun generic_remove_duplicates(lst: int list) =
+    (* not used anywhere just implemented for fun *)
+    let
+	fun element_in_lst(x: int, lst: int list) =
+	    not (null lst) andalso ((hd lst = x) orelse element_in_lst(x, tl lst))
+
+	fun reduce(lst: int list, output_lst: int list) =
+	    if null lst
+	    then output_lst
+	    else if element_in_lst((hd lst), output_lst)
+	    then reduce(tl lst, output_lst)
+	    (* using @ instead of consing can prevent reversing order *)
+	    else reduce(tl lst, (hd lst) :: output_lst)
+    in
+	reduce(lst, [])
+    end
+			   
+			   
+				  
+	
+
+				       
+				       
 					 
 	    
 	    
