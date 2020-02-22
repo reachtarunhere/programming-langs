@@ -89,3 +89,40 @@ fun oldest(dates: (int*int*int) list) =
 	in
 	    SOME (non_empty_oldest dates)
 	end
+
+
+fun unique_months(months: int list) =
+    (* take a unique list of possible months and find and keep if each exists in the supplied list -> 12 passes over provided list -> o(n) *)
+    let
+	fun element_in_lst(x: int, lst: int list) =
+	    if null lst
+	    then false
+	    else (hd lst = x) orelse element_in_lst(x, tl lst)
+
+	fun filter_months(months_in_year: int list) =
+	    if null months_in_year
+	    then []
+	    else if element_in_lst(hd months_in_year, months)
+	    then (hd months_in_year) :: filter_months(tl months_in_year)
+	    else filter_months(tl months_in_year)
+    in
+	filter_months([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    end
+
+
+fun number_in_months_challenge(dates: (int*int*int) list, months: int list) =
+    number_in_months(dates, unique_months(months))
+
+
+fun dates_in_months_challenge(dates: (int*int*int) list, months: int list) =
+    dates_in_months(dates, unique_months(months))
+				
+				
+
+					 
+	    
+	    
+	    
+	    
+						   
+	    
