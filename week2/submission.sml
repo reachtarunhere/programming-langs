@@ -143,9 +143,9 @@ fun reasonable_date(date: (int*int*int)) =
 	fun divisible(i: int, j: int) = (i mod j) = 0
 	val is_leap_year = (divisible(year, 400) orelse divisible(year, 4)) andalso not(divisible(year, 100))
 	fun get_nth(xs: int list, n: int) = if n = 1 then hd xs else get_nth(tl xs, n-1)											  
-	val validate_day = (day <= get_nth(days_in_month, month) andalso day >=0) orelse (is_leap_year andalso day = 29)
+	fun validate_day() = (day <= get_nth(days_in_month, month) andalso day >=0) orelse (is_leap_year andalso day = 29)
     in
-	validate_year andalso validate_month andalso validate_day
+	validate_year andalso validate_month andalso validate_day()
     end
 								      
 			   
