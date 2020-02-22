@@ -131,7 +131,23 @@ fun generic_remove_duplicates(lst: int list) =
 	reduce(lst, [])
     end
 
-    
+
+fun reasonable_date(date: (int*int*int)) =
+    let
+	val year = #1 date
+	val month = #2 date
+	val day = #3 date
+	val validate_year = year > 0
+	val validate_month = month >=1 andalso month <= 12
+	val days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+	fun divisible(i: int, j: int) = (i mod j) = 0
+	val is_leap_year = (divisible(year, 400) orelse divisible(year, 4)) andalso not(divisible(year, 100))
+	fun get_nth(xs: int list, n: int) = if n = 1 then hd xs else get_nth(tl xs, n-1)											  
+	val validate_day = (day <= get_nth(days_in_month, month) andalso day >=0) orelse (is_leap_year andalso day = 29)
+    in
+	validate_year andalso validate_month andalso validate_day
+    end
+								      
 			   
 			   
 				  
