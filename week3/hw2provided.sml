@@ -25,11 +25,10 @@ fun same_string(s1 : string, s2 : string) =
 (* Now a tail recursive version that does not use list equality either *)
 fun all_except_option(s, lst) =
     let
-	fun tail_helper (lst, out, found) = (* could have used just multiple arity fn but then args would not have been clear in function call *)
-	    case (lst, out, found) of
-		([], _, false) => NONE
-	      | ([], out, true) => SOME out
-	      | (x::xs', out, found) => tail_helper (xs', if same_string(s, x) then out else x::out, same_string(s, x) orelse found)
+	fun tail_helper (lst, out_lst, found_yet) = (* could have used just multiple arity fn but then args would not have been clear in function call *)
+	    case (lst, out_lst, found_yet) of
+		([], out_lst, found_yet) => if found_yet then SOME out_lst else NONE
+	      | (x::xs', out_lst, found_yet) => tail_helper (xs', if same_string(s, x) then out_lst else x::out_lst, same_string(s, x) orelse found_yet)
     in
 	tail_helper(lst, [], false)
     end
