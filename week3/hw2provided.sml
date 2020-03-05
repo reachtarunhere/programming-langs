@@ -20,6 +20,16 @@ fun all_except_option(s, lst) =
 	if filtered_lst = lst then NONE else SOME filtered_lst
     end				  
 
+(* Not sure if it is okay to compare lists for equality. also not tail recursive *)
+
+fun get_substitutions1(subs, s) =
+    case subs of
+	[] => []
+      | x :: xs' => case all_except_option(s, x) of
+		       NONE => get_substitutions1(xs', s)
+		     | SOME lst => lst @ get_substitutions1(xs', s)
+							    
+					 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades
