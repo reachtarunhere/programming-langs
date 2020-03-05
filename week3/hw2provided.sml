@@ -28,6 +28,20 @@ fun get_substitutions1(subs, s) =
       | x :: xs' => case all_except_option(s, x) of
 		       NONE => get_substitutions1(xs', s)
 		     | SOME lst => lst @ get_substitutions1(xs', s)
+
+
+fun get_substitutions2(subs, s) =
+    let
+	fun tail_helper(subs, output_lst) =
+	    case subs of
+		[] => output_lst
+	      | x :: xs' => tail_helper(xs', case all_except_option(s, x) of
+						 NONE => output_lst
+					       | SOME lst => output_lst @ lst)
+    in
+	tail_helper(subs, [])
+    end
+
 							    
 					 
 (* you may assume that Num is always used with values 2, 3, ..., 10
