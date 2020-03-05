@@ -8,19 +8,32 @@ fun same_string(s1 : string, s2 : string) =
 
 (* put your solutions for problem 1 here *)
 
+(* fun all_except_option(s, lst) = *)
+(*     let *)
+(* 	fun filter_lst lst = *)
+(* 	    case lst of *)
+(* 		[] => [] *)
+(* 	      | x :: xs' => if same_string(x, s) then filter_lst xs' else x :: filter_lst xs' *)
+
+(* 	val filtered_lst = filter_lst lst *)
+(*     in *)
+(* 	if filtered_lst = lst then NONE else SOME filtered_lst *)
+(*     end				   *)
+
+(* Not sure if it is okay to compare lists for equality. also not tail recursive. The version below is actually used *)
+
+(* Now a tail recursive version that does not use list equality either *)
 fun all_except_option(s, lst) =
     let
-	fun filter_lst lst =
-	    case lst of
-		[] => []
-	      | x :: xs' => if same_string(x, s) then filter_lst xs' else x :: filter_lst xs'
-
-	val filtered_lst = filter_lst lst
+	fun tail_helper (lst, out, found) = (* could have used just multiple arity fn but then args would not have been clear in function call *)
+	    case (lst, out, found) of
+		([], _, false) => NONE
+	      | ([], out, true) => SOME out
+	      | (x::xs', out, found) => tail_helper (xs', if same_string(s, x) then out else x::out, same_string(s, x) orelse found)
     in
-	if filtered_lst = lst then NONE else SOME filtered_lst
-    end				  
-
-(* Not sure if it is okay to compare lists for equality. also not tail recursive *)
+	tail_helper(lst, [], false)
+    end
+	
 
 fun get_substitutions1(subs, s) =
     case subs of
@@ -49,7 +62,8 @@ fun similar_names(subs, full_name) =
 	fun replace_first_name(replacements) =
 	    case replacements of
 		[] => []
-	      | x :: xs' => {first=x, middle=orig_m, last=orig_l} :: replace_first_name xs'
+	      | x :: xs' => {first=x, middle=orig_m, last=orig_l} :: replace_first_name xs
+											
     in
 	full_name :: replace_first_name(get_substitutions2(subs, orig_f))
     end
