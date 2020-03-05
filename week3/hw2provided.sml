@@ -42,7 +42,17 @@ fun get_substitutions2(subs, s) =
 	tail_helper(subs, [])
     end
 
-							    
+
+fun similar_names(subs, full_name) =
+    let
+	val {first=orig_f, middle=orig_m, last=orig_l} = full_name
+	fun replace_first_name(replacements) =
+	    case replacements of
+		[] => []
+	      | x :: xs' => {first=x, middle=orig_m, last=orig_l} :: replace_first_name xs'
+    in
+	full_name :: replace_first_name(get_substitutions2(subs, orig_f))
+    end
 					 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
