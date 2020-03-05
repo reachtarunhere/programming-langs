@@ -8,6 +8,18 @@ fun same_string(s1 : string, s2 : string) =
 
 (* put your solutions for problem 1 here *)
 
+fun all_except_option(s, lst) =
+    let
+	fun filter_lst lst =
+	    case lst of
+		[] => []
+	      | x :: xs' => if same_string(x, s) then filter_lst xs' else x :: filter_lst xs'
+
+	val filtered_lst = filter_lst lst
+    in
+	if filtered_lst = lst then NONE else SOME filtered_lst
+    end				  
+
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades
