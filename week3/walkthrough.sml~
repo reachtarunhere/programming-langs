@@ -1,0 +1,18 @@
+datatype mytype = OneInt of int | Pizza;
+
+val something = Pizza;
+(* Now let's try treating Pizza as a function with zero args *)
+(* val something_else = Pizza (); *)
+(* Can't do the above since they are values not functions like constructors that take args *)
+
+(* fun f x = *)
+(*     case x of *)
+(* 	Pizza => "hello" *)
+(*      |  OneInt(i) => i + 1  *)
+
+(* Obviously you can't return different type from the same function like above *)
+
+fun f x =
+    case x of
+	Pizza => 0
+     |  OneInt(i) => i + 1
