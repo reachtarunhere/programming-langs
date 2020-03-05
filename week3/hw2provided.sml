@@ -61,7 +61,7 @@ fun similar_names(subs, full_name) =
 	fun replace_first_name(replacements) =
 	    case replacements of
 		[] => []
-	      | x :: xs' => {first=x, middle=orig_m, last=orig_l} :: replace_first_name xs
+	      | x :: xs' => {first=x, middle=orig_m, last=orig_l} :: replace_first_name xs'
 											
     in
 	full_name :: replace_first_name(get_substitutions2(subs, orig_f))
