@@ -85,4 +85,13 @@ fun card_color c =
 	(Clubs, _) => Black
      |  (Spades, _) => Black
      |  (Diamonds, _) => Red
-     |  (Hearts, _) => Red 
+     |  (Hearts, _) => Red
+
+(* Could have used wild card to match red but I like the explicit style here  *)
+
+
+fun card_value c =
+    case c of
+	(_, Num i) => i
+      | (_, Ace) => 11
+      | _ => 10
