@@ -121,3 +121,11 @@ fun sum_cards cs =
     in
 	tail_helper(cs, 0)
     end
+
+fun score (cs, goal) =
+    let
+	val sum = sum_cards(cs)
+	val prelim_score = if sum > goal then 3 * (sum - goal) else goal - sum
+    in
+	if all_same_color cs then prelim_score div 2 else prelim_score
+    end
