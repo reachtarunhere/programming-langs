@@ -95,3 +95,13 @@ fun card_value c =
 	(_, Num i) => i
       | (_, Ace) => 11
       | _ => 10
+
+fun remove_card (cs, c, e) =
+    let
+	fun helper(cs, found_yet) =
+	    case cs of
+		[] => if found_yet then [] else raise e
+	      | x::xs' => if c = x then xs' else x :: helper (xs', found_yet orelse c = x)
+    in
+	helper(cs, false)
+    end
