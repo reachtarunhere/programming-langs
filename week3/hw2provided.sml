@@ -122,10 +122,24 @@ fun sum_cards cs =
 	tail_helper(cs, 0)
     end
 
-fun score (cs, goal) =
+fun score (held_cs, goal) =
     let
-	val sum = sum_cards(cs)
+	val sum = sum_cards(held_cs)
 	val prelim_score = if sum > goal then 3 * (sum - goal) else goal - sum
     in
-	if all_same_color cs then prelim_score div 2 else prelim_score
+	if all_same_color held_cs then prelim_score div 2 else prelim_score
+    end
+
+
+fun officiate (card_lst, moves, goal) =
+    let
+	fun get_final_score(card_lst, moves, held_cs) =
+	    if (sum_cards held_cs) > goal then score(held_cs, goal)
+	    else
+		case (card_lst, moves) of
+		    (_, []) => score(held_cs, goal)
+		  | (cl::cls', Draw::ms') => get_final_score(cls', ms', cl :: held_cs)
+		  | (card_lst, Discard(c)::ms') => get_final_score(card_lst, ms', remove_card(held_cs, c, IllegalMove))
+    in
+	get_final_score(card_lst, moves, [])
     end
