@@ -111,3 +111,13 @@ fun all_same_color cs =
 	[] => true
       | _::[] => true 
       | x::(x1::xs') => (card_color x = card_color x1) andalso all_same_color xs'
+
+fun sum_cards cs =
+    let
+	fun tail_helper (cs, accum) =
+	    case cs of
+		[] => accum
+	      | x::xs' => tail_helper (xs', (card_value x) + accum)
+    in
+	tail_helper(cs, 0)
+    end
