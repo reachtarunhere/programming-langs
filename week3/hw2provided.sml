@@ -105,3 +105,9 @@ fun remove_card (cs, c, e) =
     in
 	helper(cs, false)
     end
+
+fun all_same_color cs =
+    case cs of
+	[] => true
+      | _::[] => true 
+      | x::(x1::xs') => (card_color x = card_color x1) andalso all_same_color xs'
