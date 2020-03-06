@@ -22,17 +22,36 @@ fun same_string(s1 : string, s2 : string) =
 
 (* Not sure if it is okay to compare lists for equality. also not tail recursive. The version below is actually used *)
 
-(* Now a tail recursive version that does not use list equality either *)
 fun all_except_option(s, lst) =
     let
-	fun tail_helper (lst, out_lst, found_yet) =
+	fun filter_lst (lst, found_yet)=
 	    case lst of
-		[] => if found_yet then SOME out_lst else NONE
-	      | x::xs' => tail_helper (xs', if same_string(s, x) then out_lst else x::out_lst, same_string(s, x) orelse found_yet)
+		[] => if found_yet then SOME [] else NONE
+	      | x:: xs' => if same_string(s,x) then filter_lst(xs', true)
+			   else case filter_lst(xs', same_string(s,x) orelse found_yet) of
+				    NONE => NONE
+				  | SOME ys => SOME (x::ys)
+						    
     in
-	tail_helper(lst, [], false)
+	filter_lst(lst, false)
     end
-	
+				    
+		
+
+(* Now a tail recursive version that does not use list equality either *)
+	     
+(* fun all_except_option(s, lst) = *)
+(*     let *)
+(* 	fun tail_helper (lst, out_lst, found_yet) = *)
+(* 	    case lst of *)
+(* 		[] => if found_yet then SOME out_lst else NONE *)
+(* 	      | x::xs' => tail_helper (xs', if same_string(s, x) then out_lst else x::out_lst, same_string(s, x) orelse found_yet) *)
+(*     in *)
+(* 	tail_helper(lst, [], false) *)
+(*     end *)
+
+
+
 
 fun get_substitutions1(subs, s) =
     case subs of
