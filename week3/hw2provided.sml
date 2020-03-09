@@ -22,19 +22,28 @@ fun same_string(s1 : string, s2 : string) =
 
 (* Not sure if it is okay to compare lists for equality. also not tail recursive. The version below is actually used *)
 
-fun all_except_option(s, lst) =
-    let
-	fun filter_lst (lst, found_yet)=
-	    case lst of
-		[] => if found_yet then SOME [] else NONE
-	      | x:: xs' => if same_string(s,x) then filter_lst(xs', true)
-			   else case filter_lst(xs', same_string(s,x) orelse found_yet) of
-				    NONE => NONE
-				  | SOME ys => SOME (x::ys)
+(* fun all_except_option(s, lst) = *)
+(*     let *)
+(* 	fun filter_lst (lst, found_yet)= *)
+(* 	    case lst of *)
+(* 		[] => if found_yet then SOME [] else NONE *)
+(* 	      | x:: xs' => if same_string(s,x) then filter_lst(xs', true) *)
+(* 			   else case filter_lst(xs', same_string(s,x) orelse found_yet) of *)
+(* 				    NONE => NONE *)
+(* 				  | SOME ys => SOME (x::ys) *)
 						    
-    in
-	filter_lst(lst, false)
-    end
+(*     in *)
+(* 	filter_lst(lst, false) *)
+(*     end *)
+
+fun all_except_option(s, lst) =
+    case lst of
+	[] => NONE
+      | x::xs' => if same_string(s, x)
+		  then SOME xs'
+		  else case all_except_option(s, xs') of
+			   NONE => NONE
+			 | SOME ys => SOME (x::ys)
 				    
 		
 
