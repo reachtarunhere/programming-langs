@@ -157,6 +157,7 @@ fun officiate (card_lst, moves, goal) =
 	    else
 		case (card_lst, moves) of
 		    (_, []) => score(held_cs, goal)
+		  | ([], Draw::ms') => score(held_cs, goal)
 		  | (cl::cls', Draw::ms') => get_final_score(cls', ms', cl :: held_cs)
 		  | (card_lst, Discard(c)::ms') => get_final_score(card_lst, ms', remove_card(held_cs, c, IllegalMove))
     in
