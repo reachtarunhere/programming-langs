@@ -94,10 +94,9 @@ fun match (v, p) =
 					| bindings => bindings)
       | (Constructor (s2, v), ConstructorP (s1,p) ) => if s1=s2 then match(v, p) else NONE
       | _ => NONE
-						 
-				     
-		
-	
+
+
+fun first_match v ps = SOME (first_answer (fn p => match(v, p)) ps) handle NoAnswer => NONE
 				    
 (**** for the challenge problem only ****)
 				    
