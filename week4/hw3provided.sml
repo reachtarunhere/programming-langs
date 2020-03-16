@@ -37,6 +37,8 @@ fun longest_string_helper cmp lst = foldl (fn (s, acc) => if cmp(String.size s, 
 val longest_string3 = longest_string_helper (fn (x, y) => x > y)
 
 val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
+
+val longest_capitalized = longest_string1 o only_capitals					    
 				    
 (**** for the challenge problem only ****)
 				    
