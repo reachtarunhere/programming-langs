@@ -20,7 +20,7 @@ fun g f1 f2 p =
     in
 	case p of
 	    Wildcard          => f1 ()
-	  | Variable x        => f2 x
+ 	  | Variable x        => f2 x
 	  | TupleP ps         => List.foldl (fn (p,i) => (r p) + i) 0 ps
 	  | ConstructorP(_,p) => r p
 	  | _                 => 0
@@ -65,6 +65,23 @@ val count_wildcards = g (fn () => 1) (fn x => 0)
 val count_wild_and_variable_lengths = g (fn() => 1) String.size
 
 fun count_some_var (s, p) = g (fn () => 0) (fn x => if s=x then 1 else 0) p
+
+fun check_pat p =
+    let
+	fun get_strings p =
+	    case p of
+		Variable x => [x]
+	      | TupleP ps => foldl (fn (p, acc) => get_strings p @ acc) [] ps
+	      | ConstructorP(_, p) => get_strings p
+	      | _ => []
+
+	fun all_unique lst =
+	    case lst of
+		[] => true
+	     |  x::xs' => (not (List.exists (fn y => x=y) xs')) andalso all_unique(xs')
+    in
+	all_unique (get_strings p)
+    end						       
 	
 
 		
