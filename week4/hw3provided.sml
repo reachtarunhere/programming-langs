@@ -48,6 +48,19 @@ fun first_answer f lst =
       | x::xs' => case f x of
 		      NONE => first_answer f xs'
 		    | SOME v => v
+
+
+fun all_answers f lst =
+    let
+	val applied_lst = map f lst
+	val NONEinLst = foldl (fn (x, acc) => case x of NONE => true | _ => acc) false (* function to check if applied lst has any NONE *)
+	val CombineSOMElst = foldl (fn (SOME v, acc) => v @ acc) [] (* take SOME lst1 SOME lst2 .. and return SOME lst *)
+    in
+	if NONEinLst applied_lst then NONE else SOME (CombineSOMElst applied_lst)
+    end
+
+		
+	
 				    
 (**** for the challenge problem only ****)
 				    
