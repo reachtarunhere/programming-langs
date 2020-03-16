@@ -59,6 +59,10 @@ fun all_answers f lst =
 	if NONEinLst applied_lst then NONE else SOME (CombineSOMElst applied_lst)
     end
 
+
+val count_wildcards = g (fn () => 1) (fn x => 0)
+
+val count_wild_and_variable_lengths = g (fn() => 1) String.size
 	
 
 		
