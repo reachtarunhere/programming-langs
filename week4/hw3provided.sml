@@ -35,6 +35,8 @@ fun longest_string2 lst = foldl (fn (s, acc) => if String.size(s) >= String.size
 fun longest_string_helper cmp lst = foldl (fn (s, acc) => if cmp(String.size s, String.size acc) then s else acc) "" lst
 
 val longest_string3 = longest_string_helper (fn (x, y) => x > y)
+
+val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
 				    
 (**** for the challenge problem only ****)
 				    
