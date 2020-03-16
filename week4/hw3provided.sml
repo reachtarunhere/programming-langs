@@ -89,7 +89,8 @@ fun match (v, p) =
       | (v, Variable s) => SOME [(s, v)]
       | (Unit, UnitP) => SOME []
       | (Const i, ConstP j) => if i=j then SOME [] else NONE
-      | (Tuple vs, TupleP ps) => (case all_answers match (ListPair.zip(vs, ps)) of
+      | (Tuple vs, TupleP ps) => if (length vs) <> (length ps) then NONE else
+				    (case all_answers match (ListPair.zip(vs, ps)) of
 					  NONE => NONE
 					| bindings => bindings)
       | (Constructor (s2, v), ConstructorP (s1,p) ) => if s1=s2 then match(v, p) else NONE
