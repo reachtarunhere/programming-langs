@@ -41,6 +41,13 @@ val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
 val longest_capitalized = longest_string1 o only_capitals
 
 val rev_string = String.implode o rev o String.explode
+
+fun first_answer f lst =
+    case lst of
+	[] => raise NoAnswer
+      | x::xs' => case f x of
+		      NONE => first_answer f xs'
+		    | SOME v => v
 				    
 (**** for the challenge problem only ****)
 				    
